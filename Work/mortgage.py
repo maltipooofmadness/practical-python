@@ -21,13 +21,13 @@ PRINCIPAL = 500000.00
 RATE = .05
 PAYMENT = 2684.11
 TOTAL_PAID = 0.0
-MONTH_EXTRA = 0
+# MONTH_EXTRA = 0
 MONTHS_TOTAL = 0
 
 while PRINCIPAL > 0:
-    while MONTH_EXTRA < 12:
+    while MONTHS_TOTAL < 12:
         PRINCIPAL = PRINCIPAL * (1 + RATE/12) - (PAYMENT + 1000)
-        MONTH_EXTRA = MONTH_EXTRA + 1
+        # MONTH_EXTRA = MONTH_EXTRA + 1
         MONTHS_TOTAL = MONTHS_TOTAL + 1
         TOTAL_PAID = TOTAL_PAID + PAYMENT + 1000
     PRINCIPAL = PRINCIPAL * (1 + RATE/12) - PAYMENT
@@ -53,15 +53,15 @@ EXTRA_PAYMENT_END = int(
 EXTRA_PAYMENT = float(
     input("How much extra would you like to pay per month? "))
 TOTAL_PAID = 0.0
-MONTH_EXTRA = 0
+# MONTH_EXTRA = 0
 MONTHS_TOTAL = 0
 
 while PRINCIPAL > 0:
     MONTHS_TOTAL = MONTHS_TOTAL + 1
     if MONTHS_TOTAL == EXTRA_PAYMENT_START:  
-        while MONTH_EXTRA < (EXTRA_PAYMENT_END - EXTRA_PAYMENT_START + 1):
+        while MONTHS_TOTAL <= EXTRA_PAYMENT_END:
             PRINCIPAL = PRINCIPAL * (1 + RATE/12) - (PAYMENT + EXTRA_PAYMENT)
-            MONTH_EXTRA = MONTH_EXTRA + 1
+            # MONTH_EXTRA = MONTH_EXTRA + 1
             TOTAL_PAID = TOTAL_PAID + PAYMENT + EXTRA_PAYMENT
             MONTHS_TOTAL = MONTHS_TOTAL + 1
     PRINCIPAL = PRINCIPAL * (1 + RATE/12) - PAYMENT
@@ -87,25 +87,20 @@ EXTRA_PAYMENT_END = int(
 EXTRA_PAYMENT = float(
     input("How much extra would you like to pay per month? "))
 TOTAL_PAID = 0.0
-MONTH_EXTRA = 0
 MONTHS_TOTAL = 0
-PAID_SO_FAR = 0.0
 
 while PRINCIPAL > 0:
     MONTHS_TOTAL = MONTHS_TOTAL + 1
     if MONTHS_TOTAL == EXTRA_PAYMENT_START:
-        while MONTH_EXTRA < (EXTRA_PAYMENT_END - EXTRA_PAYMENT_START + 1):
+        while MONTHS_TOTAL <= EXTRA_PAYMENT_END:
             PRINCIPAL = PRINCIPAL * (1 + RATE/12) - (PAYMENT + EXTRA_PAYMENT)
-            MONTH_EXTRA = MONTH_EXTRA + 1
             TOTAL_PAID = TOTAL_PAID + PAYMENT + EXTRA_PAYMENT
-            PAID_SO_FAR = PAID_SO_FAR + PAYMENT + EXTRA_PAYMENT
-            print(MONTHS_TOTAL, round(PAID_SO_FAR,2), round(PRINCIPAL,2), 
+            print(MONTHS_TOTAL, round(TOTAL_PAID,2), round(PRINCIPAL,2), 
                   "- Extra payment month")
             MONTHS_TOTAL = MONTHS_TOTAL + 1
     PRINCIPAL = PRINCIPAL * (1 + RATE/12) - PAYMENT
     TOTAL_PAID = TOTAL_PAID + PAYMENT
-    PAID_SO_FAR = PAID_SO_FAR + PAYMENT
-    print(MONTHS_TOTAL, round(PAID_SO_FAR,2), round(PRINCIPAL,2))
+    print(MONTHS_TOTAL, round(TOTAL_PAID,2), round(PRINCIPAL,2))
 
 print("Total paid:", round(TOTAL_PAID,2), "over", MONTHS_TOTAL, "months...")
 
