@@ -1,3 +1,14 @@
 # mortgage.py
 #
 # Exercise 1.7
+
+PRINCIPAL = 500000.00
+RATE = .05
+PAYMENT = 2684.11
+TOTAL_PAID = 0.0
+
+while PRINCIPAL > 0:
+    PRINCIPAL = PRINCIPAL * (1 + RATE/12) - PAYMENT
+    TOTAL_PAID = TOTAL_PAID + PAYMENT
+
+print("Total paid:", TOTAL_PAID)
