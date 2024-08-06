@@ -59,3 +59,33 @@ def portfolio_cost_import_csv(filename):
     
 costs = portfolio_cost_import_csv('py/portfolio.csv')
 print('Total cost to purchase the portfolio:', costs)
+
+# Exercise 1.33
+
+import sys
+
+def portfolio_cost_import_csv(filename):
+    '''This function takes a filename as input, 
+    reads the portfolio data in that file, 
+    and returns the total cost of the portfolio as a float.'''
+    import csv
+    with open(filename) as file:
+        rows = csv.reader(file) # make each row into a list?
+        headers = next(rows)
+        print('Headers:',headers)
+        total_cost = 0.0
+        for row in rows:
+            try:
+                total_cost = total_cost + int(row[1]) * float(row[2])
+            except ValueError:
+                print("Oopsie-woopsie, couldn't parsie!", row)
+        return(total_cost)
+
+if len(sys.argv) == 2: #sys.argv is a list that contains passed arguments 
+                       # on the command line (if any)
+    filename = sys.argv[1]
+else:
+    filename = 'py/portfolio.csv'
+
+costs = portfolio_cost_import_csv(filename)
+print('Total cost to purchase the portfolio:', costs)
