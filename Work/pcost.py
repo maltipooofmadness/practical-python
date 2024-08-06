@@ -37,3 +37,25 @@ portfolio_cost('py/missing.csv')
 # we can now see where something wrong has happened, but continue 
 # the program execution after skipping each execption
 # NEAT!
+
+# Exercise 1.32
+
+def portfolio_cost_import_csv(filename):
+    '''This function takes a filename as input, 
+    reads the portfolio data in that file, 
+    and returns the total cost of the portfolio as a float.'''
+    import csv
+    with open(filename) as file:
+        rows = csv.reader(file)
+        headers = next(rows)
+        print('Headers:',headers)
+        total_cost = 0.0
+        for row in rows:
+            try:
+                total_cost = total_cost + int(row[1]) * float(row[2])
+            except ValueError:
+                print("Oopsie-woopsie, couldn't parsie!", row)
+        return(total_cost)
+    
+costs = portfolio_cost_import_csv('py/portfolio.csv')
+print('Total cost to purchase the portfolio:', costs)
