@@ -81,7 +81,7 @@ def portfolio_cost_import_csv(filename):
                 print("Oopsie-woopsie, couldn't parsie!", row)
         return(total_cost)
 
-if len(sys.argv) == 2: #sys.argv is a list that contains passed arguments 
+if len(sys.argv) == 2: # sys.argv is a list that contains passed arguments 
                        # on the command line (if any)
     filename = sys.argv[1]
 else:
