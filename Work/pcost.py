@@ -46,7 +46,7 @@ def portfolio_cost_import_csv(filename):
     and returns the total cost of the portfolio as a float.'''
     import csv
     with open(filename) as file:
-        rows = csv.reader(file)
+        rows = csv.reader(file)  # make each row into a list?
         headers = next(rows)
         print('Headers:',headers)
         total_cost = 0.0
