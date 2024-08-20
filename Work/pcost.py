@@ -89,3 +89,48 @@ else:
 
 costs = portfolio_cost_import_csv(filename)
 print('Total cost to purchase the portfolio:', costs)
+
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Aug 10 17:13:08 2024
+
+@author: User
+"""
+####
+# Exercise 3.14
+####
+
+import os
+# os.chdir('C:\\Users\\90036ysh\\Dropbox\\Postdoc\\py')
+os.chdir('D:\\Dropbox\\Postdoc\\py')
+import report_main
+
+
+def portfolio_cost(filename) -> float:
+    '''This function takes a filename as input, 
+    reads the portfolio data in that file, 
+    and returns the total cost of the portfolio as a float.'''
+    portfolio = report_main.read_portfolio(filename)
+    total_cost = 0.0
+    for row in portfolio:
+        num_shares = row['shares']
+        price = row['price']
+        total_cost += num_shares * price 
+    return total_cost 
+
+# 3.15
+def main(args) -> print:
+    '''
+    Accepts command line options and produces output - prints portfolio value
+    '''
+    if len(args) !=2:
+        raise SystemExit('Usage: %s portfolio_file' % args[0])
+    filename = args[1]
+    print('Total cost:', portfolio_cost(filename))
+
+# 3.16
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)
+
+
