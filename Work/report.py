@@ -457,5 +457,101 @@ if __name__ == '__main__':
 #     print(f'{name:-^43s}')
 #     portfolio_report(name,'Data/prices.csv')
 #     print()
+
+
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Aug 12 11:24:23 2024
+
+@author: 90036ysh
+"""
+
+####
+# Exercise 3.12 .. 3.18
+####
+
+import os
+# os.chdir('C:\\Users\\90036ysh\\Dropbox\\Postdoc\\py')
+os.chdir('D:\\Dropbox\\Postdoc\\py')
+import fileparse_main
+import stock
+
+def read_portfolio(filename) -> list:
+    '''Reads a stock portfolio file into a list of dictionaries with keys:
+    name, shares, and price.'''
+    with open(filename, 'rt') as file:
+        portdicts = fileparse_main.parse_csv(file,
+                                    select=['name','shares','price'],
+                                    types=[str,int,float])
+    portfolio = [ stock.Stock(line['name'],line['shares'],line['price']) 
+            for line in portdicts ]
+    return portfolio
     
+def read_prices(filename) -> dict:
+    '''Reads a set of prices into a dictionary where the keys are
+    the stock names and the values are the prices.'''
+    with open(filename, 'rt') as file: 
+        return dict(fileparse_main.parse_csv(file,
+                                    types=[str,float],
+                                    hasheaders=False)
+                         )
+
+def make_report(portfolio,prices) -> list:
+    '''Takes a list of stocks and dictionary of prices as input 
+    and returns a list of tuples containing the rows of the table in 2.9'''
+    report = []
+    for st in portfolio:
+        summary = (
+            st.name,
+            st.shares,
+            prices[st.name],
+            prices[st.name] - st.price
+            )
+        report.append(summary)
+    return report
+
+def print_report(report) -> print:
+    '''
+    Prints a report on the portfolio performance given the current prices
+    '''
+    header = ('Name','Shares','Prirce','Change')
+    print('%10s %10s %10s %10s' % header)
+    print(('-' * 10 + ' ') * len(header))
+    for name,shares,price,change in report:
+        print(f'{name:>10s} {shares:>10d} {"$"+str(price):>10s} {change:>10.2f}')
+        
+def portfolio_report(portfolio_filename,prices_filename) -> print:
+    '''
+    Assigns files to be processed to produce a portfolio report and 
+    calls the report
+    '''
+    portfolio = read_portfolio(portfolio_filename)
+    prices = read_prices(prices_filename)
+    report = make_report(portfolio,prices)
+    print_report(report)
+
+# 3.15
+def main(args):
+    '''
+    Accepts command line input and produces output table - portfolio report
+    '''
+    if len(args) != 3:
+        raise SystemExit('Usage: %s portfolio_filename prices_filename' % args[0])
+    portfolio_report(args[1],args[2])
+
+# 3.16    
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)
+
+# portfolio_report('Data/portfoliodate.csv','Data/prices.csv')
+
+# ####
+# files = ['Data/portfolio.csv','Data/portfolio2.csv']
+# for name in files:
+#     print(f'{name:-^43s}')
+#     portfolio_report(name,'Data/prices.csv')
+#     print()
+    
+
 
